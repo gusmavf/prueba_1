@@ -1,37 +1,57 @@
+import {
+  LoginLink,
+  LogoutLink,
+  RegisterLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
 import Link from 'next/link';
-import React from 'react';
-import { Button } from '../ui/button';
+import { buttonVariants } from '../ui/button';
 import { ModeToggle } from './ModeToggle';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-export default function NavBar() {
+export default async function NavBar() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   return (
     <nav className='py-5 flex items-center justify-between'>
       <div className='flex items-center gap-6'>
-        <Link href={'/'}>
+        <Link href='/'>
           <h1 className='text-3xl font-semibold'>
             Blog<span className='text-blue-500'>Gustavo</span>
           </h1>
         </Link>
         <div className='hidde sm:flex items-center gap-6'>
           <Link
-            href={'/dashboard'}
+            href='/'
             className='text-sm font-medium hover:text-blue-500 trasition-colors'
           >
             Home
           </Link>
           <Link
-            href={'/dashboard'}
+            href='/dashboard'
             className='text-sm font-medium hover:text-blue-500 trasition-colors'
           >
             DashBoard
           </Link>
         </div>
       </div>
-      <div className='flex items-center gap-4'>
-        <Button>Login</Button>
-        <Button variant='secondary'>Sign Up</Button>
-        <ModeToggle />
-      </div>
+
+      {user ? (
+        <div className='flex items-center gap-4'>
+          <p>{user.given_name}</p>
+          <LogoutLink className={buttonVariants({ variant: 'secondary' })}>
+            Log Out
+          </LogoutLink>
+        </div>
+      ) : (
+        <div className='flex items-center gap-4'>
+          <LoginLink className={buttonVariants()}>Login</LoginLink>
+          <RegisterLink className={buttonVariants({ variant: 'secondary' })}>
+            Sign up
+          </RegisterLink>
+        </div>
+      )}
+      <ModeToggle />
     </nav>
   );
 }
