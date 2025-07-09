@@ -1,9 +1,24 @@
+import { BlogspotCard } from '@/components/general/BlogpostCard';
 import { buttonVariants } from '@/components/ui/button';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+
 import Link from 'next/link';
 import { prisma } from '../utils/db';
-import { BlogPost } from '@prisma/client';
-import { BlogspotCard } from '@/components/general/BlogpostCard';
+
+// Define the BlogPost type according to your Prisma schema
+type BlogPost = {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  authorId: string;
+  authorName: string;
+  authorImage: string;
+
+  updatedAt: Date;
+  createdAt: Date;
+
+};
 
 async function getData(userId: string) {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay
