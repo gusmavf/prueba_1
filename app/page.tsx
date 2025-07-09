@@ -22,11 +22,10 @@ async function getData() {
 }
 
 export default async function Home() {
-  const data = await getData();
   return (
     <div className='py-6'>
       <h1 className='text-3xl font-bold tracking-tighter mb-8'>Latest Posts</h1>
-      <Suspense fallback={<BlogPostsGrid/>}>
+      <Suspense fallback={<BlogPostsGrid />}>
         <BlogSpots />
       </Suspense>
     </div>
@@ -37,7 +36,7 @@ async function BlogSpots() {
   const data = await getData();
   return (
     <div className='grid grid-cols-1 md:grid-col2-2 lg:grid-cols-3 gap-4'>
-      {data.map((item, index) => (
+      {data.map((item) => (
         <BlogspotCard data={item} key={item.id} />
       ))}
     </div>
