@@ -3,6 +3,7 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { prisma } from './db';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export async function createPostAction(formData: FormData) {
   const { getUser } = getKindeServerSession();
@@ -33,5 +34,6 @@ export async function createPostAction(formData: FormData) {
     },
   });
 
+  revalidatePath('/')
   return redirect('/dashboard');
 }
