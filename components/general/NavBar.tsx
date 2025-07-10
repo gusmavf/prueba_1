@@ -1,3 +1,4 @@
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import {
   LoginLink,
   LogoutLink,
@@ -6,11 +7,10 @@ import {
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 import { ModeToggle } from './ModeToggle';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-export default async function NavBar() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+export default function NavBar() {
+  const { getUser } = useKindeBrowserClient();
+  const user = getUser();
 
   return (
     <nav className='py-5 flex items-center justify-between'>
