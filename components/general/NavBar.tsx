@@ -1,5 +1,6 @@
 'use client';
 
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import {
   LoginLink,
   LogoutLink,
@@ -8,8 +9,6 @@ import {
 import Link from 'next/link';
 import { buttonVariants } from '../ui/button';
 import { ModeToggle } from './ModeToggle';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 
 export default function NavBar() {
   const { getUser } = useKindeBrowserClient();
